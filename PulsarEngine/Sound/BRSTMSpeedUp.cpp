@@ -20,7 +20,8 @@ using namespace nw4r;
 static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 hudSlotId) {
     //static u8 hudSlotIdFinalLap;
 
-    u8 isSpeedUp = Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_SPEEDUP);
+    // u8 isSpeedUp = Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_SPEEDUP);
+    bool isSpeedUp = true;
     Audio::RaceMgr* raceAudioMgr = Audio::RaceMgr::sInstance;
     const u8 maxLap = raceAudioMgr->maxLap;
     const u8 curLap = raceAudioMgr->lap;
@@ -31,7 +32,7 @@ static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 
         register Audio::KartActor* kartActor;
         asm(mr kartActor, r29;);
         snd::detail::BasicSound& sound =  kartActor->soundArchivePlayer->soundPlayerArray[0].soundList.GetFront();
-        if(isSpeedUp == RACESETTING_SPEEDUP_ENABLED || sound.soundId == SOUND_ID_GALAXY_COLOSSEUM) {
+        if(isSpeedUp == true || sound.soundId == SOUND_ID_GALAXY_COLOSSEUM) {
             const RaceInfo* raceInfo = RaceInfo::sInstance;
             const Timer& raceTimer = raceInfo->timerMgr->timers[0];
             const Timer& playerTimer = raceInfo->players[hudSlotId]->lapSplits[maxLap - 2];

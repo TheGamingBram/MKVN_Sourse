@@ -18,6 +18,7 @@ extern u32 RKNetController_Search7;
 extern u32 RKNetController_Search8;
 extern u32 U32_RBBG_HOOK_PT1;
 extern u32 U32_RBBG_HOOK_PT2;
+extern u32 U32_RANDOMITEM_HOOK;
 
 namespace MKVN {
 class System : public Pulsar::System {

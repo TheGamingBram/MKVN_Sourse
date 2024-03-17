@@ -6,22 +6,22 @@ namespace Race{
 static void *GetCustomItemSlot(ArchiveRoot *archive, ArchiveSource type, const char *name, u32 *length){
     const Gamemode gamemode = System::GetGamemode();
     if (gamemode == RACESETTING_MODE_NORMAL){
-        name = "ItemSlot1.bin";
+        name = "ItemSlot0.bin";
     }
     else if (gamemode == RACESETTING_MODE_RANDOM){
-        name = "ItemSlot2.bin";
+        name = "ItemSlot1.bin";
     }
     else if (gamemode == RACESETTING_MODE_MUSHROOM){
-        name = "ItemSlot3.bin";
+        name = "ItemSlot2.bin";
     }
     else if (gamemode == RACESETTING_MODE_BBB){
-        name = "ItemSlot4.bin";
+        name = "ItemSlot3.bin";
     }
     if (gamemode == RACESETTING_MODE_BSS){
-        name = "ItemSlot5.bin";
+        name = "ItemSlot4.bin";
     }
     else if (gamemode == RACESETTING_MODE_CHAOTIC){
-        name = "ItemSlot6.bin";
+        name = "ItemSlot5.bin";
     }
     return archive->GetFile(type, name, length);
 }

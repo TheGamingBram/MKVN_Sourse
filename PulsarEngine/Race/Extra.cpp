@@ -57,7 +57,7 @@ kmCall(0x8081fdb4, LoadOriginalItemboxes);
 
 static void LoadCustomFakeItemboxes(g3d::ResFile &file, ArchiveSource type, const char *brresName){
     if (strcmp(brresName, "itemBoxNiseRtpa.brres") == 0 && System::GetGamemode() != RACESETTING_MODE_NONE){
-        brresName = "itemBoxNiseRtpaVP.brres";
+        brresName = "itemBoxNiseRtpaMKVN.brres";
     }
     ModelDirector::BindBRRES(file, type, brresName);
 }
