@@ -11,7 +11,7 @@
 namespace MKVN {
 namespace Race{
 static bool BlueShellSwapping(bool hasItem){
-    if (System::GetGamemode() == RACESETTING_MODE_BSS){
+    if (System::GetGamemode() == MKVN_GAMEMODE_BSS){
         for(int i=0; i<RaceData::sInstance->racesScenario.localPlayerCount; ++i){
             u8 hudPlayerId = RaceData::sInstance->racesScenario.settings.hudPlayerIds[i];
             Input::RealControllerHolder *controllerHolder = &Input::Manager::sInstance->realControllerHolders[i];

@@ -1,6 +1,8 @@
 #include <MarioKartWii/Race/RaceData.hpp>
 #include <SlotExpansion/CupsConfig.hpp>
 #include <Settings/UI/SettingsPanel.hpp>
+#include <MarioKartWii/RKNet/SELECT.hpp>
+#include <MarioKartWii/UI/Page/Other/VR.hpp>
 #include <MKVN.hpp>
 
 namespace MKVN {
@@ -85,15 +87,35 @@ Gamemode System::GetGamemode(){
     const GameMode gameMode = RaceData::sInstance->racesScenario.settings.gamemode;
     const bool isTTs = gameMode == MODE_TIME_TRIAL;
     const bool isFroom = gameMode == MODE_PRIVATE_VS || gameMode == MODE_PRIVATE_BATTLE;
+    const bool isRegional = gameMode == MODE_PUBLIC_VS || MODE_PUBLIC_BATTLE;
     if (!isRegs){
         if (!isTTs){
-            if (isFroom){
+            if (isFroom || isRegional){
                 return GetsInstance()->hostMode;
             }
             return static_cast<Gamemode>(Pulsar::Settings::Mgr::GetSettingValue(static_cast<Pulsar::Settings::Type>(SETTINGSTYPE_MKVN), SETTINGMKVN_SCROLLER_MODE));
         }
-        return RACESETTING_MODE_NORMAL;
+        return MKVN_GAMEMODE_NORMAL;
     }
-    return RACESETTING_MODE_NONE;
+    return MKVN_GAMEMODE_NONE;
 }
+
+void UpdateVRBMGText(Pages::VR *page){ //assume it's of this type so we can use it's members
+    if (page->pageId == PAGE_VR && !Pulsar::CupsConfig::IsRegsSituation()){
+        System *mkvn = System::GetsInstance();
+        if (mkvn->vrScreenTimer == 0){
+            const GameMode gameMode = RaceData::sInstance->menusScenario.settings.gamemode;
+            if (gameMode == MODE_PUBLIC_VS || MODE_PRIVATE_VS)
+                page->ctrlMenuBottomMessage.SetMessage(BMG_VR_BOTTOM_100CC + (RKNet::SELECTHandler::sInstance->GetEngineClass() - 1));
+            else
+                page->ctrlMenuBottomMessage.SetMessage(BMG_VR_BOTTOM_BALLOON + (RKNet::SELECTHandler::sInstance->GetBattleType()));
+            mkvn->vrScreenTimer = 360;
+        }
+        else if(mkvn->vrScreenTimer == 180){
+            page->ctrlMenuBottomMessage.SetMessage(DISPLAY_GAMEMODE_NORMAL + mkvn->hostMode);
+        }
+        --mkvn->vrScreenTimer;
+    }
+}
+kmBranch(0x805bb22c, UpdateVRBMGText);
 } // namespace MKVN
