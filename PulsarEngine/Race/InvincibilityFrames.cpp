@@ -15,10 +15,10 @@ DamageType ApplyChaoticEffects(DamageType newDamage, u8 playerId);
 
 static void UpdateTimers(){
     if (!Pulsar::CupsConfig::IsRegsSituation()) {
-        System *vp = System::GetsInstance();
+        System *mkvn = System::GetsInstance();
         for (int i=0; i<12; ++i){
-            if (vp->invincibilityTimer[i] > 0){
-                --vp->invincibilityTimer[i];
+            if (mkvn->invincibilityTimer[i] > 0){
+                --mkvn->invincibilityTimer[i];
             }
         }
     }
@@ -28,9 +28,9 @@ static RaceFrameHook UpdateTimerHook(UpdateTimers);
 
 static void ResetTimers(){
     if (!Pulsar::CupsConfig::IsRegsSituation()) {
-        System *MKVN = System::GetsInstance();
+        System *mkvn = System::GetsInstance();
         for (int i=0; i<12; ++i){
-                MKVN->invincibilityTimer[i] = 0;
+                mkvn->invincibilityTimer[i] = 0;
         }
     }
 }
@@ -42,13 +42,13 @@ static void InvincibilityFrames(Kart::Damage *kartDamage, DamageType newDamage, 
         const u8 playerId = kartDamage->link.GetPlayerIdx();
         const GameMode gameMode = RaceData::sInstance->racesScenario.settings.gamemode;
         const Gamemode MKVNGameMode = System::GetGamemode();
-        System *MKVN = System::GetsInstance();
-        if (MKVN->invincibilityTimer[playerId] > 0){
+        System *mkvn = System::GetsInstance();
+        if (mkvn->invincibilityTimer[playerId] > 0){
             return;
         }
-        MKVN->invincibilityTimer[playerId] = 150;
+        mkvn->invincibilityTimer[playerId] = 150;
 
-        if (MKVNGameMode == MKVN_GAMEMODE_CHAOTIC){ // For Chaotic add item effects and damage
+        if (MKVNGameMode == GAMEMODE_CHAOTIC){ // For Chaotic add item effects and damage
             newDamage = ApplyChaoticEffects(newDamage, playerId);
         }
     }

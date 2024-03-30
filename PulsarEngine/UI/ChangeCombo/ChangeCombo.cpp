@@ -3,9 +3,9 @@
 #include <MarioKartWii/Race/RaceData.hpp>
 #include <UI/UI.hpp>
 #include <UI/ChangeCombo/ChangeCombo.hpp>
-// #include <VP.hpp>
-// #include <UI/TransmissionSelect.hpp>
-// #include <UI/MultiTransmissionSelect.hpp>
+#include <MKVN.hpp>
+#include <UI/TransmissionSelect.hpp>
+#include <UI/MultiTransmissionSelect.hpp>
 
 namespace Pulsar {
 namespace UI {
@@ -59,16 +59,16 @@ void ExpVR::OnInit() {
     Pages::MultiKartSelect* multiKartPage = section->Get<Pages::MultiKartSelect>();
     if(multiKartPage != nullptr) multiKartPage->timer = timer;
 
-    // VP::UI::TransmissionSelect* transmissionPage = section->Get<VP::UI::TransmissionSelect>();
-    // if(transmissionPage != nullptr) transmissionPage->timer = timer;
+    MKVN::UI::TransmissionSelect* transmissionPage = section->Get<MKVN::UI::TransmissionSelect>();
+    if(transmissionPage != nullptr) transmissionPage->timer = timer;
 
     Pages::DriftSelect* driftPage = section->Get<Pages::DriftSelect>();
     if(driftPage != nullptr) driftPage->timer = timer;
 
-    // VP::UI::MultiTransmissionSelect* multiTransmissionPage = section->Get<VP::UI::MultiTransmissionSelect>();
-    // if(multiTransmissionPage != nullptr) {
-    //     multiTransmissionPage->timer = timer;
-    // }
+    MKVN::UI::MultiTransmissionSelect* multiTransmissionPage = section->Get<MKVN::UI::MultiTransmissionSelect>();
+    if(multiTransmissionPage != nullptr) {
+        multiTransmissionPage->timer = timer;
+    }
 
     Pages::MultiDriftSelect* multiDriftPage = section->Get<Pages::MultiDriftSelect>();
     if(multiDriftPage != nullptr) {
@@ -89,16 +89,16 @@ void ExpVR::RandomizeCombo(PushButton& randomComboButton, u32 hudSlotId) {
     SectionParams* sectionParams = sectionMgr->sectionParams;
     for(int hudId = 0; hudId < sectionParams->localPlayerCount; hudId++) {
         CharacterId character = random.NextLimited<CharacterId>(24);
-        // if (VP::System::GetCharacterRestriction() != VP::CHAR_DEFAULTSELECTION) character = static_cast<CharacterId>(CtrlMenuCharacterSelect::buttonIdToCharacterId[static_cast<VP::CharButtonId>(random.NextLimited<u8>(8) + (8 * (VP::System::GetCharacterRestriction() - 1)))]);
-        // u8 kartCount = 12;
-        // if (VP::System::GetKartRestriction() != VP::KART_DEFAULTSELECTION) kartCount = 6;
-        // const u32 randomizedKartPos = random.NextLimited(kartCount);
-        // const KartId kart = kartsSortedByWeight[CharacterIDToWeightClass(character)][randomizedKartPos];
+        if (MKVN::System::GetCharacterRestriction() != MKVN::CHAR_DEFAULTSELECTION) character = static_cast<CharacterId>(CtrlMenuCharacterSelect::buttonIdToCharacterId[static_cast<MKVN::CharButtonId>(random.NextLimited<u8>(8) + (8 * (MKVN::System::GetCharacterRestriction() - 1)))]);
+        u8 kartCount = 12;
+        if (MKVN::System::GetKartRestriction() != MKVN::KART_DEFAULTSELECTION) kartCount = 6;
+        const u32 randomizedKartPos = random.NextLimited(kartCount);
+        const KartId kart = kartsSortedByWeight[CharacterIDToWeightClass(character)][randomizedKartPos];
 
         sectionParams->characters[hudId] = character;
-        // sectionParams->players[hudId] = kart;
+        sectionParams->players[hudId] = kart;
         sectionParams->combos[hudId].selCharacter = character;
-        // sectionParams->combos[hudId].selKart = kart;
+        sectionParams->combos[hudId].selKart = kart;
 
         ExpCharacterSelect* charSelect = section->Get<ExpCharacterSelect>(); //guaranteed to exist on this page
         charSelect->randomizedCharIdx[hudId] = character;
@@ -115,17 +115,17 @@ void ExpVR::RandomizeCombo(PushButton& randomComboButton, u32 hudSlotId) {
         ExpKartSelect* kartSelect = section->Get<ExpKartSelect>();
         if(kartSelect != nullptr) {
             kartSelect->rouletteCounter = ExpVR::randomDuration;
-            // kartSelect->randomizedKartPos = randomizedKartPos;
-            // kartSelect->rolledKartPos = randomizedKartPos;
+            kartSelect->randomizedKartPos = randomizedKartPos;
+            kartSelect->rolledKartPos = randomizedKartPos;
             kartSelect->controlsManipulatorManager.inaccessible = true;
         }
 
         ExpMultiKartSelect* multiKartSelect = section->Get<ExpMultiKartSelect>();
         if(multiKartSelect != nullptr) {
             multiKartSelect->rouletteCounter = ExpVR::randomDuration;
-            // multiKartSelect->rolledKartPos[0] = randomizedKartPos;
+            multiKartSelect->rolledKartPos[0] = randomizedKartPos;
             u8 options = 12;
-            // if (VP::System::GetKartRestriction() != VP::KART_DEFAULTSELECTION) options = 6;
+            if (MKVN::System::GetKartRestriction() != MKVN::KART_DEFAULTSELECTION) options = 6;
             if(IsBattle()) options = 2;
             multiKartSelect->rolledKartPos[1] = random.NextLimited(options);
             multiKartSelect->controlsManipulatorManager.inaccessible = true;
@@ -147,8 +147,18 @@ static void AddChangeComboPages(Section* section, PageId id) {
     if(SectionMgr::sInstance->sectionParams->localPlayerCount == 2) {
         kartPage = PAGE_MULTIPLAYER_KART_SELECT;
         driftPage = PAGE_MULTIPLAYER_DRIFT_SELECT;
+        PageId transmissionPage = static_cast<PageId>(MKVN::PAGE_MULTI_TRANSMISSION_SELECT);
+        MKVN::UI::MultiTransmissionSelect* transmission = new(MKVN::UI::MultiTransmissionSelect);
+        section->Set(transmission, transmissionPage);
+        transmission->Init(transmissionPage);
     }
-    else if(isBattle) kartPage = PAGE_BATTLE_KART_SELECT;
+    else if(SectionMgr::sInstance->sectionParams->localPlayerCount == 1){
+        PageId transmissionPage = static_cast<PageId>(MKVN::PAGE_TRANSMISSION_SELECT);
+        MKVN::UI::TransmissionSelect* transmission = new(MKVN::UI::TransmissionSelect);
+        section->Set(transmission, transmissionPage);
+        transmission->Init(transmissionPage);
+    }
+    if(isBattle) kartPage = PAGE_BATTLE_KART_SELECT;
     section->CreateAndInitPage(kartPage);
     section->CreateAndInitPage(driftPage);
 }
@@ -190,7 +200,7 @@ void ExpCharacterSelect::BeforeControlUpdate() {
         if(roulette == 1) this->rolledCharIdx[hudId] = this->randomizedCharIdx[hudId];
         else if(isGoodFrame) while(this->rolledCharIdx[hudId] == prevChar) {
             this->rolledCharIdx[hudId] = random.NextLimited<CharacterId>(24);
-            // if (VP::System::GetCharacterRestriction() != VP::CHAR_DEFAULTSELECTION) this->rolledCharIdx[hudId] = static_cast<CharacterId>(CtrlMenuCharacterSelect::buttonIdToCharacterId[static_cast<VP::CharButtonId>(random.NextLimited<u8>(8) + (8 * (VP::System::GetCharacterRestriction() - 1)))]);
+            if (MKVN::System::GetCharacterRestriction() != MKVN::CHAR_DEFAULTSELECTION) this->rolledCharIdx[hudId] = static_cast<CharacterId>(CtrlMenuCharacterSelect::buttonIdToCharacterId[static_cast<MKVN::CharButtonId>(random.NextLimited<u8>(8) + (8 * (MKVN::System::GetCharacterRestriction() - 1)))]);
         }
         if(isGoodFrame) {
             this->ctrlMenuCharSelect.GetButtonDriver(prevChar)->HandleDeselect(hudId, -1);
@@ -249,7 +259,7 @@ void ExpKartSelect::BeforeControlUpdate() {
         u32 nextRoll = prevRoll;
         const bool isGoodFrame = roulette % 4 == 1;
         u8 kartCount = 12;
-        // if (VP::System::GetKartRestriction() != VP::KART_DEFAULTSELECTION) kartCount = 6;
+        if (MKVN::System::GetKartRestriction() != MKVN::KART_DEFAULTSELECTION) kartCount = 6;
         if(roulette == 1) nextRoll = this->randomizedKartPos;
         else if(isGoodFrame) while(nextRoll == prevRoll) nextRoll = random.NextLimited(kartCount);
         if(isGoodFrame) {
@@ -269,7 +279,7 @@ void ExpKartSelect::BeforeControlUpdate() {
 
 ButtonMachine* ExpKartSelect::GetKartButton(u32 idx) const {
     u8 buttonsPerRow = 2;
-    // if (VP::System::GetKartRestriction() != VP::KART_DEFAULTSELECTION) buttonsPerRow = 1;
+    if (MKVN::System::GetKartRestriction() != MKVN::KART_DEFAULTSELECTION) buttonsPerRow = 1;
     const UIControl* globalButtonHolder = this->controlGroup.GetControl(buttonsPerRow); //holds the 6 controls (6 rows) that each hold a pair of buttons
     return globalButtonHolder->childrenGroup.GetControl(idx / buttonsPerRow)->childrenGroup.GetControl<ButtonMachine>(idx % buttonsPerRow);
 }

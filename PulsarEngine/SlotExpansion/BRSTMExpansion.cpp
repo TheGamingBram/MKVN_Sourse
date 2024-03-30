@@ -2,25 +2,29 @@
 #include <MarioKartWii/Audio/AudioManager.hpp>
 #include <SlotExpansion/CupsConfig.hpp>
 #include <SlotExpansion/UI/ExpansionUIMisc.hpp>
+#include <Settings/Settings.hpp>
+#include <PulsarSystem.hpp>
+#include <MKVN.hpp>
 
 
-namespace Pulsar {
+namespace MKVN {
 namespace Sound {
 //Custom implementation of music slot expansion; this would break with regs
 //kmWrite32(0x8009e0dc, 0x7F87E378); //mr r7, r28 to get string length
 
 static char pulPath[0x100];
-s32 CheckBRSTM(const nw4r::snd::DVDSoundArchive* archive, PulsarId id, bool isFinalLap) {
+s32 CheckBRSTM(const nw4r::snd::DVDSoundArchive* archive, Pulsar::PulsarId id, bool isFinalLap) {
 
     const char* root = archive->extFileRoot;
-    const char* lapSpecifier = isFinalLap ? "_f" : "_n";
+    // const char* lapSpecifier = isFinalLap ? "_f" : "_n";
+    const char* lapSpecifier = "_n";
     s32 ret = -1;
     char trackName[0x100];
-    UI::GetTrackBMG(trackName, id);
+    Pulsar::UI::GetTrackBMG(trackName, id);
     snprintf(pulPath, 0x100, "%sstrm/%s%s.brstm", root, trackName, lapSpecifier);
     ret = DVDConvertPathToEntryNum(pulPath);
     if(ret < 0) {
-        snprintf(pulPath, 0x50, "%sstrm/%d%s.brstm", root, CupsConfig::ConvertTrack_PulsarIdToRealId(id), lapSpecifier);
+        snprintf(pulPath, 0x50, "%sstrm/%d%s.brstm", root, Pulsar::CupsConfig::ConvertTrack_PulsarIdToRealId(id), lapSpecifier);
         ret = DVDConvertPathToEntryNum(pulPath);
     }
     return ret;
@@ -28,11 +32,11 @@ s32 CheckBRSTM(const nw4r::snd::DVDSoundArchive* archive, PulsarId id, bool isFi
 
 nw4r::ut::FileStream* MusicSlotsExpand(nw4r::snd::DVDSoundArchive* archive, void* buffer, int size,
     const char* extFilePath, u32 r7, u32 length) {
-
+    u8 isBRSTMOn = Pulsar::Settings::Mgr::GetSettingValue(static_cast<Pulsar::Settings::Type>(SETTINGSTYPE_MKVN), SETTINGMKVN_RADIO_BRSTM);
     const char firstChar = extFilePath[0xC];
-    const PulsarId track = CupsConfig::sInstance->winningCourse;
-    const CupsConfig* cupsConfig = CupsConfig::sInstance;
-    if((firstChar == 'n' || firstChar == 'S' || firstChar == 'r') && !CupsConfig::IsReg(track)) {
+    const Pulsar::PulsarId track = Pulsar::CupsConfig::sInstance->winningCourse;
+    const Pulsar::CupsConfig* cupsConfig = Pulsar::CupsConfig::sInstance;
+    if((firstChar == 'n' || firstChar == 'S' || firstChar == 'r') && !Pulsar::CupsConfig::IsReg(track) && isBRSTMOn == MKVNSETTING_BRSTM_ENABLED) {
         bool isFinalLap = false;
         register u32 strLength;
         asm(mr strLength, r28;);

@@ -20,8 +20,7 @@ namespace MKVN {
 namespace Network{
 void ResetGamemodeAndTimer(){
     System *mkvn = System::GetsInstance();
-        const GameMode gameMode = RaceData::sInstance->menusScenario.settings.gamemode;
-        mkvn->isRegModeSelected = gameMode == MODE_PRIVATE_VS || gameMode == MODE_PRIVATE_BATTLE;
+        //mkvn->isRegModeSelected = false;
         mkvn->vrScreenTimer = 0;
     }
 kmBranch(0x8064a848, ResetGamemodeAndTimer);

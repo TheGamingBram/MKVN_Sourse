@@ -1,8 +1,3 @@
-#include <MarioKartWii/Race/RaceData.hpp>
-#include <SlotExpansion/CupsConfig.hpp>
-#include <Settings/UI/SettingsPanel.hpp>
-#include <MarioKartWii/RKNet/SELECT.hpp>
-#include <MarioKartWii/UI/Page/Other/VR.hpp>
 #include <MKVN.hpp>
 
 namespace MKVN {
@@ -15,13 +10,17 @@ void System::AfterInit(){
     ++Pulsar::UI::SettingsPanel::pageCount;
 
     // Radio button count for new page
-    Pulsar::UI::SettingsPanel::radioButtonCount[SETTINGSTYPE_MKVN] = 3;
+    Pulsar::UI::SettingsPanel::radioButtonCount[SETTINGSTYPE_MKVN] = 5;
     // Restrict Kart Selection Count i.e. Default/Karts/Bikes
     Pulsar::UI::SettingsPanel::buttonsPerPagePerRow[SETTINGSTYPE_MKVN][0] = 3;
     // Restrict Character Selection Count i.e. Default/Light/Medium/Heavy
     Pulsar::UI::SettingsPanel::buttonsPerPagePerRow[SETTINGSTYPE_MKVN][1] = 4;
+    // Force Transmission in friend rooms
+    Pulsar::UI::SettingsPanel::buttonsPerPagePerRow[SETTINGSTYPE_MKVN][2] = 3;
     // Background Blur and Glow Toggle
-    Pulsar::UI::SettingsPanel::buttonsPerPagePerRow[SETTINGSTYPE_MKVN][2] = 2;
+    Pulsar::UI::SettingsPanel::buttonsPerPagePerRow[SETTINGSTYPE_MKVN][3] = 2;
+    // Pack Music Toggle
+    Pulsar::UI::SettingsPanel::buttonsPerPagePerRow[SETTINGSTYPE_MKVN][4] = 2;
 
     // Scroller count for new page
     Pulsar::UI::SettingsPanel::scrollerCount[SETTINGSTYPE_MKVN] = 1;
@@ -82,37 +81,63 @@ KartRestriction System::GetKartRestriction(){
     return KART_DEFAULTSELECTION;
 }
 
+u8 System::GetTransmission(){
+    const GameMode gameMode = RaceData::sInstance->menusScenario.settings.gamemode;
+    const bool isFroom = gameMode == MODE_PRIVATE_VS || gameMode == MODE_PRIVATE_BATTLE;
+    if (isFroom){
+        return GetsInstance()->forcedTransmission;
+    }
+    return TRANSMISSION_DEFAULT;
+}
+
 Gamemode System::GetGamemode(){
     const bool isRegs = Pulsar::CupsConfig::IsRegsSituation();
     const GameMode gameMode = RaceData::sInstance->racesScenario.settings.gamemode;
-    const bool isTTs = gameMode == MODE_TIME_TRIAL;
-    const bool isFroom = gameMode == MODE_PRIVATE_VS || gameMode == MODE_PRIVATE_BATTLE;
-    const bool isRegional = gameMode == MODE_PUBLIC_VS || MODE_PUBLIC_BATTLE;
+    const GameMode menuGameMode = RaceData::sInstance->menusScenario.settings.gamemode;
+    const bool isTTs = gameMode == MODE_TIME_TRIAL || menuGameMode == MODE_TIME_TRIAL;
+    const bool isFroom = gameMode == MODE_PRIVATE_VS || gameMode == MODE_PRIVATE_BATTLE || menuGameMode == MODE_PRIVATE_VS || menuGameMode == MODE_PRIVATE_BATTLE;
+    const bool isRegional = gameMode == MODE_PUBLIC_VS || gameMode == MODE_PUBLIC_BATTLE || menuGameMode == MODE_PUBLIC_VS || menuGameMode == MODE_PUBLIC_BATTLE;
     if (!isRegs){
-        if (!isTTs){
-            if (isFroom || isRegional){
+        if (!isTTs && !isRegional){
+            if (isFroom){
                 return GetsInstance()->hostMode;
             }
             return static_cast<Gamemode>(Pulsar::Settings::Mgr::GetSettingValue(static_cast<Pulsar::Settings::Type>(SETTINGSTYPE_MKVN), SETTINGMKVN_SCROLLER_MODE));
         }
-        return MKVN_GAMEMODE_NORMAL;
+        return GAMEMODE_NORMAL;
     }
-    return MKVN_GAMEMODE_NONE;
+    return GAMEMODE_NONE;
 }
 
 void UpdateVRBMGText(Pages::VR *page){ //assume it's of this type so we can use it's members
     if (page->pageId == PAGE_VR && !Pulsar::CupsConfig::IsRegsSituation()){
+        const GameMode gameMode = RaceData::sInstance->menusScenario.settings.gamemode;
+        const bool isFroom = gameMode == MODE_PRIVATE_VS || gameMode == MODE_PRIVATE_BATTLE;
         System *mkvn = System::GetsInstance();
-        if (mkvn->vrScreenTimer == 0){
-            const GameMode gameMode = RaceData::sInstance->menusScenario.settings.gamemode;
-            if (gameMode == MODE_PUBLIC_VS || MODE_PRIVATE_VS)
-                page->ctrlMenuBottomMessage.SetMessage(BMG_VR_BOTTOM_100CC + (RKNet::SELECTHandler::sInstance->GetEngineClass() - 1));
-            else
-                page->ctrlMenuBottomMessage.SetMessage(BMG_VR_BOTTOM_BALLOON + (RKNet::SELECTHandler::sInstance->GetBattleType()));
-            mkvn->vrScreenTimer = 360;
+        if (isFroom && mkvn->forcedTransmission != TRANSMISSION_DEFAULT){
+            if (mkvn->vrScreenTimer == 0){
+                SectionMgr* sectionMgr = SectionMgr::sInstance;
+                Pages::CountDownTimer* countdownTimer = sectionMgr->curSection->Get<Pages::CountDownTimer>();
+                page->ctrlMenuBottomMessage.SetMessage(countdownTimer->GetInstructionBmgId());
+                mkvn->vrScreenTimer = 360;
+            }
+            else if(mkvn->vrScreenTimer == 240){
+                page->ctrlMenuBottomMessage.SetMessage(DISPLAY_GAMEMODE_NORMAL + mkvn->GetGamemode());
+            }
+            else if(mkvn->vrScreenTimer == 120){
+                page->ctrlMenuBottomMessage.SetMessage(DISPLAY_FORCEDTRANS_OUTSIDE + mkvn->forcedTransmission - 1);
+            }
         }
-        else if(mkvn->vrScreenTimer == 180){
-            page->ctrlMenuBottomMessage.SetMessage(DISPLAY_GAMEMODE_NORMAL + mkvn->hostMode);
+        else{ 
+            if (mkvn->vrScreenTimer == 0){
+                SectionMgr* sectionMgr = SectionMgr::sInstance;
+                Pages::CountDownTimer* countdownTimer = sectionMgr->curSection->Get<Pages::CountDownTimer>();
+                page->ctrlMenuBottomMessage.SetMessage(countdownTimer->GetInstructionBmgId());
+                mkvn->vrScreenTimer = 240;
+            }
+            else if(mkvn->vrScreenTimer == 120){
+                page->ctrlMenuBottomMessage.SetMessage(DISPLAY_GAMEMODE_NORMAL + mkvn->GetGamemode());
+            }
         }
         --mkvn->vrScreenTimer;
     }

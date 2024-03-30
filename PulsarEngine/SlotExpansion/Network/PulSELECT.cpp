@@ -29,22 +29,22 @@ void BeforeSELECTSend(RKNet::PacketHolder* packetHolder, CustomSELECTPacket* src
     else{
         src->pulSELPlayerData[1].starRank += 0x80; //set leftmost bit to specify PULPacket
 
-        MKVN::System *mkvn = MKVN::System::GetsInstance();
-        MKVN::Gamemode chosenMode = mkvn->hostMode;
-        const RKNet::Controller* controller = RKNet::Controller::sInstance;
-        const RKNet::ControllerSub& sub = controller->subs[controller->currentSub];
-        const u8 hostAid = sub.hostAid;
-        const u8 localAid = sub.localAid;
-        if (localAid == hostAid){
-            if (!mkvn->isRegModeSelected){
-                Random random;
-                chosenMode = static_cast<MKVN::Gamemode>(random.NextLimited(MKVN::System::GetGamemodeCount()));
-                mkvn->hostMode = chosenMode;
-                mkvn->isRegModeSelected = true;
-            }
-            src->pulSELPlayerData[0].starRank &= 0b11111;
-        }
-        src->pulSELPlayerData[0].starRank += (chosenMode << 5);
+        // MKVN::System *mkvn = MKVN::System::GetsInstance();
+        // MKVN::Gamemode chosenMode = mkvn->hostMode;
+        // const RKNet::Controller* controller = RKNet::Controller::sInstance;
+        // const RKNet::ControllerSub& sub = controller->subs[controller->currentSub];
+        // const u8 hostAid = sub.hostAid;
+        // const u8 localAid = sub.localAid;
+        // if (localAid == hostAid){
+        //     if (!mkvn->isRegModeSelected){
+        //         Random random;
+        //         chosenMode = static_cast<MKVN::Gamemode>(random.NextLimited(MKVN::System::GetGamemodeCount()));
+        //         mkvn->hostMode = chosenMode;
+        //         mkvn->isRegModeSelected = true;
+        //     }
+        //     src->pulSELPlayerData[0].starRank &= 0b11111;
+        // }
+        // src->pulSELPlayerData[0].starRank += (chosenMode << 5);
     }
     packetHolder->Copy(src, len);
 }
@@ -69,18 +69,18 @@ static void AfterSELECTReception(CustomSELECTPacket* dest, CustomSELECTPacket* s
         src->engineClass = engineClass;
     }
     else{
-        src->pulSELPlayerData[1].starRank -= 0x80;
+        src->pulSELPlayerData[1].starRank -= 0x80; //remove leftmost bit from PULPacket
 
-        const RKNet::Controller* controller = RKNet::Controller::sInstance;
-        const RKNet::ControllerSub& sub = controller->subs[controller->currentSub];
-        const u8 localAid = sub.localAid;
-        const u8 hostAid = sub.hostAid;
-        MKVN::System *mkvn = MKVN::System::GetsInstance();
-        if (localAid != hostAid && !mkvn->isRegModeSelected){
-            mkvn->hostMode = static_cast<MKVN::Gamemode>((src->pulSELPlayerData[0].starRank & 0b11100000) >> 5);
-            mkvn->isRegModeSelected = true;
-        }
-        src->pulSELPlayerData[0].starRank &= 0b00001111;
+        // const RKNet::Controller* controller = RKNet::Controller::sInstance;
+        // const RKNet::ControllerSub& sub = controller->subs[controller->currentSub];
+        // const u8 localAid = sub.localAid;
+        // const u8 hostAid = sub.hostAid;
+        // MKVN::System *mkvn = MKVN::System::GetsInstance();
+        // if (localAid != hostAid && !mkvn->isRegModeSelected){
+        //     mkvn->hostMode = static_cast<MKVN::Gamemode>((src->pulSELPlayerData[0].starRank & 0b11100000) >> 5);
+        //     mkvn->isRegModeSelected = true;
+        // }
+        // src->pulSELPlayerData[0].starRank &= 0b1111;
     }
     memcpy(dest, src, sizeof(CustomSELECTPacket));
 }
@@ -115,7 +115,6 @@ static void DecideTrack(CustomSELECTHandler* select) {
     const CupsConfig* cupsConfig = CupsConfig::sInstance;
     const RKNet::Controller* controller = RKNet::Controller::sInstance;
     if(select->mode == RKNet::ONLINEMODE_PUBLIC_VS && !CupsConfig::IsRegsSituation()) {
-
         const u32 availableAids = controller->subs[controller->currentSub].availableAids;
         u8 aids[12];
         u8 newVotesAids[12];
