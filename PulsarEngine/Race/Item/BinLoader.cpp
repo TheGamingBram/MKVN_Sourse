@@ -14,15 +14,15 @@ static void *GetCustomItemSlot(ArchiveRoot *archive, ArchiveSource type, const c
     else if (gamemode == GAMEMODE_MUSHROOM){
         name = "ItemSlot2.bin";
     }
-    else if (gamemode == GAMEMODE_BBB){
-        name = "ItemSlot3.bin";
-    }
-    if (gamemode == GAMEMODE_BSS){
-        name = "ItemSlot4.bin";
-    }
-    else if (gamemode == GAMEMODE_CHAOTIC){
-        name = "ItemSlot5.bin";
-    }
+    // else if (gamemode == GAMEMODE_BBB){
+    //     name = "ItemSlot3.bin";
+    // }
+    // if (gamemode == GAMEMODE_BSS){
+    //     name = "ItemSlot4.bin";
+    // }
+    // else if (gamemode == GAMEMODE_CHAOTIC){
+    //     name = "ItemSlot5.bin";
+    // }
     return archive->GetFile(type, name, length);
 }
 kmCall(0x807bb128, GetCustomItemSlot);

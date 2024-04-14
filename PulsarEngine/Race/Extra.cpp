@@ -17,35 +17,35 @@ namespace Race{
 // Don't Lose VR When Disconnecting
 kmWrite32(0x80856560, 0x60000000);
 
-static void VSPointsSystem(){
-    if (!IsBattle()){
-        RacedataScenario &scenario = RaceData::sInstance->menusScenario;
-        const RaceInfo *raceinfo = RaceInfo::sInstance;
-        for (int i = 0; i < scenario.playerCount; ++i){
-            const u8 playerId = raceinfo->playerIdInEachPosition[i];
-            const u8 playerIdOf1st = raceinfo->playerIdInEachPosition[0];
-            if (playerId == playerIdOf1st){
-                scenario.players[playerId].score = scenario.players[playerId].previousScore + 35;
-            }
-            else{
-                const Timer *finishTimer = raceinfo->players[playerId]->raceFinishTime;
-                const Timer *finishTimerOf1st = raceinfo->players[playerIdOf1st]->raceFinishTime;
-                if (finishTimer->isActive){
-                    const Timer diffTimer = CtrlRaceGhostDiffTime::SubtractTimers(*finishTimer, *finishTimerOf1st);
-                    const s32 diff = diffTimer.seconds + diffTimer.minutes*60;
+// static void VSPointsSystem(){
+//     if (!IsBattle()){
+//         RacedataScenario &scenario = RaceData::sInstance->menusScenario;
+//         const RaceInfo *raceinfo = RaceInfo::sInstance;
+//         for (int i = 0; i < scenario.playerCount; ++i){
+//             const u8 playerId = raceinfo->playerIdInEachPosition[i];
+//             const u8 playerIdOf1st = raceinfo->playerIdInEachPosition[0];
+//             if (playerId == playerIdOf1st){
+//                 scenario.players[playerId].score = scenario.players[playerId].previousScore + 35;
+//             }
+//             else{
+//                 const Timer *finishTimer = raceinfo->players[playerId]->raceFinishTime;
+//                 const Timer *finishTimerOf1st = raceinfo->players[playerIdOf1st]->raceFinishTime;
+//                 if (finishTimer->isActive){
+//                     const Timer diffTimer = CtrlRaceGhostDiffTime::SubtractTimers(*finishTimer, *finishTimerOf1st);
+//                     const s32 diff = diffTimer.seconds + diffTimer.minutes*60;
 
-                    if (diff < 30){
-                        scenario.players[playerId].score = scenario.players[playerId].previousScore + (30-diff);
-                    }
-                    else{
-                        scenario.players[playerId].score = scenario.players[playerId].previousScore;
-                    }
-                }
-            }
-        }
-    }
-}
-kmBranch(0x8052ed14, VSPointsSystem);
+//                     if (diff < 30){
+//                         scenario.players[playerId].score = scenario.players[playerId].previousScore + (30-diff);
+//                     }
+//                     else{
+//                         scenario.players[playerId].score = scenario.players[playerId].previousScore;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+// kmBranch(0x8052ed14, VSPointsSystem);
 
 static void LoadOriginalItemboxes(g3d::ResFile &file, ArchiveSource type, const char *brresName, const g3d::ResFile& fallBack){
     if (strcmp(brresName, "itembox.brres") == 0){

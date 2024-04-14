@@ -28,9 +28,10 @@ static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 
     Audio::RaceMgr* raceAudioMgr = Audio::RaceMgr::sInstance;
     const u8 maxLap = raceAudioMgr->maxLap;
     const u8 curLap = raceAudioMgr->lap;
+    const RacedataSettings& raceDataSettings = RaceData::sInstance->racesScenario.settings;
     //const u8 idFirstFinalLap = hudSlotIdFinalLap;
     if(maxLap == 1) return;
-    if(maxLap == raceData->racesScenario.settings.lapCount) {
+    if(maxLap == raceDataSettings.lapCount) {
 
         register Audio::KartActor* kartActor;
         asm(mr kartActor, r29;);
@@ -38,12 +39,12 @@ static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 
         if(isBRSTMOn == MKVNSETTING_BRSTM_ENABLED || sound.soundId == SOUND_ID_GALAXY_COLOSSEUM) {
             const RaceInfo* raceInfo = RaceInfo::sInstance;
             const Timer& raceTimer = raceInfo->timerMgr->timers[0];
-            const Timer& playerTimer = raceInfo->players[raceData->GetPlayerIdOfLocalPlayer(hudSlotId)]->lapSplits[maxLap - 2];
+            const Timer& playerTimer = raceInfo->players[raceDataSettings.hudPlayerIds[hudSlotId]]->lapSplits[maxLap - 2];
             const Timer difference = CtrlRaceGhostDiffTime::SubtractTimers(raceTimer, playerTimer);
             if(difference.minutes < 1 && difference.seconds < 5) {
                 sound.ambientParam.pitch += 0.0002f;
             }
-            if(maxLap != curLap) rsarSoundPlayer->PlaySound(SOUND_ID_FINAL_LAP, hudSlotId);
+        //     if(maxLap != curLap) rsarSoundPlayer->PlaySound(SOUND_ID_FINAL_LAP, hudSlotId);
         }
         else if((maxLap != curLap) && (raceAudioMgr->raceState == 0x4 || raceAudioMgr->raceState == 0x6)) {
             raceAudioMgr->SetRaceState(Audio::RACE_STATE_FAST);

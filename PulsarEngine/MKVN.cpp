@@ -25,7 +25,7 @@ void System::AfterInit(){
     // Scroller count for new page
     Pulsar::UI::SettingsPanel::scrollerCount[SETTINGSTYPE_MKVN] = 1;
     // Gamemode Scroller Option Count
-    Pulsar::UI::SettingsPanel::optionsPerPagePerScroller[SETTINGSTYPE_MKVN][0] = 6;
+    Pulsar::UI::SettingsPanel::optionsPerPagePerScroller[SETTINGSTYPE_MKVN][0] = 3;
 }
 
 WeightClass System::GetWeightClass(const CharacterId id){

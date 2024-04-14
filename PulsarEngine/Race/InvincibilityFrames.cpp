@@ -48,9 +48,9 @@ static void InvincibilityFrames(Kart::Damage *kartDamage, DamageType newDamage, 
         }
         mkvn->invincibilityTimer[playerId] = 150;
 
-        if (MKVNGameMode == GAMEMODE_CHAOTIC){ // For Chaotic add item effects and damage
-            newDamage = ApplyChaoticEffects(newDamage, playerId);
-        }
+        // if (MKVNGameMode == GAMEMODE_CHAOTIC){ // For Chaotic add item effects and damage
+        //     newDamage = ApplyChaoticEffects(newDamage, playerId);
+        // }
     }
     if (newDamage != NO_DAMAGE) kartDamage->SetDamage(newDamage, r5, affectsMegas, appliedDamage, playerIdxItemPlayerSub, r8);
 }

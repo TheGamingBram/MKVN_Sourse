@@ -6,13 +6,13 @@ namespace MKVN {
 namespace Race{
 static void CustomItemWindow(ControlLoader *loader, const char *folderName, const char *ctrName, const char *variant, const char **animNames){
     const Gamemode gamemode = System::GetGamemode();
-    if (gamemode == GAMEMODE_BSS){
-        ctrName = "item_window_BSS";
-    }
-    else if (gamemode == GAMEMODE_BBB){
-        ctrName = "item_window_BBB";
-    }
-    else if (gamemode != GAMEMODE_NONE){
+    // if (gamemode == GAMEMODE_BSS){
+    //     ctrName = "item_window_BSS";
+    // }
+    // else if (gamemode == GAMEMODE_BBB){
+    //     ctrName = "item_window_BBB";
+    // }
+    if (gamemode != GAMEMODE_NONE){
         ctrName = "item_window_NOR";
     }
     else{

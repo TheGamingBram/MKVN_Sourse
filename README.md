@@ -12,9 +12,6 @@ MKVN is an extention to the Pulsar Engine & Variety Pack made by Brawlbox and Me
 * Normal Gamemode
 * Random Items Gamemode
 * Mushrooms Only Gamemode
-* Bob-omb Blast Gamemode (Credits to Brawlbox)
-* Blue Shell Showdown (Credits to Brawlbox)
-* Chaos Gamemode (Credits to Brawlbox)
 
 ## Gameplay Changes
 * Load DriverParam from CommonAssets. (Credits to Brawlbox)
