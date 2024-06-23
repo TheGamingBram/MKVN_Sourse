@@ -83,7 +83,7 @@ static u8 CharCheerGetCorrectArguments(int r3, u8 id) {
 }
 kmCall(0x808570c4, CharCheerGetCorrectArguments);
 
-static void PatchFinishRaceBMGID(LayoutUIControl& control, u32 bmgId, const TextInfo* text) {
+static void PatchFinishRaceBMGID(LayoutUIControl& control, u32 bmgId, const Text::Info* text) {
     const SectionId sectionId = SectionMgr::sInstance->curSection->sectionId;
     if(sectionId >= SECTION_WATCH_GHOST_FROM_CHANNEL && sectionId <= SECTION_WATCH_GHOST_FROM_MENU) bmgId = BMG_FINISH;
     control.SetMessage(bmgId, text);

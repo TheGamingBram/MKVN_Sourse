@@ -9,9 +9,6 @@
 /.vscode
 */.vscode
 /.vs
-/PulsarPackCreator/bin
-/PulsarPackCreator/obj
-/PulsarPackCreator/.vs
 /KamekLinker/bin
 /KamekLinker/obj
 /KamekLinker/.vs
@@ -23,17 +20,13 @@ KamekLinker\.vs/
 KamekLinker/obh/
 KamekLinker\obj/
 /build
-/GameSource/core
-/GameSource/include
-/GameSource/MarioKartWii
 /KamekInclude
 /KamekLinker
 /Loader
 /PulsarBin
-/PulsarPackCreator
-/BuildCode.bat
 /demangler.py
 /Pulsar Pack Creator.sln
+PulsarPackCreator__
 
 # Compiled Object files
 *.slo

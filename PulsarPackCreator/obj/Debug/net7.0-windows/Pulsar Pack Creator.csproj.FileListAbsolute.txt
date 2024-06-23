@@ -1,0 +1,36 @@
+D:\MKVN_Sourse\PulsarPackCreator\bin\Debug\net7.0-windows\Pulsar Pack Creator.exe
+D:\MKVN_Sourse\PulsarPackCreator\bin\Debug\net7.0-windows\Pulsar Pack Creator.dll.config
+D:\MKVN_Sourse\PulsarPackCreator\bin\Debug\net7.0-windows\Pulsar Pack Creator.deps.json
+D:\MKVN_Sourse\PulsarPackCreator\bin\Debug\net7.0-windows\Pulsar Pack Creator.runtimeconfig.json
+D:\MKVN_Sourse\PulsarPackCreator\bin\Debug\net7.0-windows\Pulsar Pack Creator.dll
+D:\MKVN_Sourse\PulsarPackCreator\bin\Debug\net7.0-windows\System.IO.Hashing.dll
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.csproj.AssemblyReference.cache
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Crash.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\MassImportCups.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\MassImportEditor.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\MsgBox.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Settings.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Crash.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\MassImportCups.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\MassImportEditor.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\MsgBox.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Settings.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\App.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator_Content.g.cs
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator_MarkupCompile.cache
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator_MarkupCompile.lref
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\App.baml
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.g.resources
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar_Pack_Creator.Properties.Resources.resources
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar_Pack_Creator.PulsarRes.resources
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.csproj.GenerateResource.cache
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.GeneratedMSBuildEditorConfig.editorconfig
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.csproj.CoreCompileInputs.cache
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.sourcelink.json
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.csproj.CopyComplete
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.dll
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\refint\Pulsar Pack Creator.dll
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\Pulsar Pack Creator.genruntimeconfig.cache
+D:\MKVN_Sourse\PulsarPackCreator\obj\Debug\net7.0-windows\ref\Pulsar Pack Creator.dll

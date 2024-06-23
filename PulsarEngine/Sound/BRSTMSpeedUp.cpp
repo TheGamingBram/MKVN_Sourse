@@ -6,8 +6,6 @@
 #include <MarioKartWii/Audio/Actors/KartActor.hpp>
 #include <MarioKartWii/UI/Ctrl/CtrlRace/CtrlRaceGhostDiffTime.hpp>
 #include <Settings/Settings.hpp>
-#include <PulsarSystem.hpp>
-#include <MKVN.hpp>
 
 
 /*Music speedup:
@@ -15,7 +13,7 @@ When the player reaches the final lap (if the track has >1 laps) and if the sett
 speedup instead of transitioning to the _f file. The jingle will still play.
 */
 
-namespace MKVN {
+namespace Pulsar {
 namespace Sound {
 
 using namespace nw4r;
@@ -23,8 +21,6 @@ static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 
     //static u8 hudSlotIdFinalLap;
 
     // u8 isSpeedUp = Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_SPEEDUP);
-    u8 isBRSTMOn = Pulsar::Settings::Mgr::GetSettingValue(static_cast<Pulsar::Settings::Type>(SETTINGSTYPE_MKVN), SETTINGMKVN_RADIO_BRSTM);
-    RaceData *raceData = RaceData::sInstance;
     Audio::RaceMgr* raceAudioMgr = Audio::RaceMgr::sInstance;
     const u8 maxLap = raceAudioMgr->maxLap;
     const u8 curLap = raceAudioMgr->lap;
@@ -35,8 +31,8 @@ static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 
 
         register Audio::KartActor* kartActor;
         asm(mr kartActor, r29;);
-        snd::detail::BasicSound& sound = kartActor->soundArchivePlayer->soundPlayerArray[0].soundList.GetFront();
-        if(isBRSTMOn == MKVNSETTING_BRSTM_ENABLED || sound.soundId == SOUND_ID_GALAXY_COLOSSEUM) {
+        snd::detail::BasicSound& sound =  kartActor->soundArchivePlayer->soundPlayerArray[0].soundList.GetFront();
+        if(sound.soundId == SOUND_ID_GALAXY_COLOSSEUM) {
             const RaceInfo* raceInfo = RaceInfo::sInstance;
             const Timer& raceTimer = raceInfo->timerMgr->timers[0];
             const Timer& playerTimer = raceInfo->players[raceDataSettings.hudPlayerIds[hudSlotId]]->lapSplits[maxLap - 2];
@@ -44,7 +40,7 @@ static void MusicSpeedup(Audio::RaceRSARPlayer* rsarSoundPlayer, u32 jingle, u8 
             if(difference.minutes < 1 && difference.seconds < 5) {
                 sound.ambientParam.pitch += 0.0002f;
             }
-        //     if(maxLap != curLap) rsarSoundPlayer->PlaySound(SOUND_ID_FINAL_LAP, hudSlotId);
+            if(maxLap != curLap) rsarSoundPlayer->PlaySound(SOUND_ID_FINAL_LAP, hudSlotId);
         }
         else if((maxLap != curLap) && (raceAudioMgr->raceState == 0x4 || raceAudioMgr->raceState == 0x6)) {
             raceAudioMgr->SetRaceState(Audio::RACE_STATE_FAST);
@@ -61,4 +57,4 @@ kmWrite32(0x8070b2c0, 0x60000000);
 kmWrite32(0x8070b2d4, 0x60000000);
 
 }//namespace Audio
-}//namespace MKVN
+}//namespace Pulsar

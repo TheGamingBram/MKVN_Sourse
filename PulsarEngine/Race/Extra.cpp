@@ -74,15 +74,15 @@ static void DropMotionSensorBombs(Item::ObjBomb* obj){
 kmCall(0x807a5be4, DropMotionSensorBombs);
 kmWrite32(0x807a5c10, 0x60000000); // nope the store of the timer
 
-static void ThrowMotionSensorBombs(Item::ObjBomb* obj, Item::PlayerSub& playerSub, u32 groundEffectDelay, bool isThrow, float speed, float throwHeight, float dropHeight){
-    obj->SetInitialPositionImpl(playerSub, groundEffectDelay, isThrow, speed, throwHeight, dropHeight);
-    int timer = 90;
-    if (System::GetGamemode() != GAMEMODE_NONE){
-        timer = 4095;
-    }
-    obj->timer = timer;
-}
-kmCall(0x807a4ac4, ThrowMotionSensorBombs);
-kmWrite32(0x807a4acc, 0x60000000); // nop the store of the timer
+// static void ThrowMotionSensorBombs(Item::ObjBomb* obj, Item::PlayerObj& playerSub, u32 groundEffectDelay, bool isThrow, float speed, float throwHeight, float dropHeight){
+//     obj->SetInitialPositionImpl(playerSub, groundEffectDelay, isThrow, speed, throwHeight, dropHeight);
+//     int timer = 90;
+//     if (System::GetGamemode() != GAMEMODE_NONE){
+//         timer = 4095;
+//     }
+//     obj->timer = timer;
+// }
+// kmCall(0x807a4ac4, ThrowMotionSensorBombs);
+// kmWrite32(0x807a4acc, 0x60000000); // nop the store of the timer
 } // namespace Race
 } // namespace VP

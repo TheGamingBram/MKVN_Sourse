@@ -8,25 +8,31 @@ namespace Pulsar {
 namespace Sound {
 using namespace nw4r;
 //Reimplementation of CTGP's BRSTM volume patch
-bool LoadBRSTMVolume(snd::detail::StrmFileLoader& fileLoader, snd::detail::StrmFileReader::StrmInfo* info) {
+bool LoadBRSTMVolumeAndFixTrackCount(snd::detail::StrmFileLoader& fileLoader, snd::detail::StrmFileReader::StrmInfo& info) {
+    register snd::detail::StrmSound* sound;
+    asm(subi sound, r29, 0x100);
 
     u8 volume = *reinterpret_cast<const u8*>(ut::AddU32ToPtr(fileLoader.fileReader.header, 0x3F));
     if(volume != 0) {
-        register snd::detail::StrmSound* sound;
-        asm(subi sound, r29, 0x100);
+
         const u32 maxVolume = 0x7F;
         if(volume > maxVolume) volume = maxVolume;
         sound->mainOutVolume = (float)volume / (float)maxVolume;
     }
-    return fileLoader.ReadStrmInfo(info);
+    bool ret = fileLoader.ReadStrmInfo(&info);
+    if(ret) {
+        sound->strmPlayer.channelsNeeded = ut::Min(sound->strmPlayer.channelsNeeded, info.channelCount);
+        sound->strmPlayer.trackCount = ut::Min(sound->strmPlayer.trackCount, info.channelCount / 2);
+    }
+    return ret;
 }
-kmCall(0x800a66f4, LoadBRSTMVolume);
+kmCall(0x800a66f4, LoadBRSTMVolumeAndFixTrackCount);
 //kmWrite32(0x800a66f0, 0x389DFF00);
 
 //Automatic BRSAR patching from Elias_
-void BRSAREntrySizePatch(snd::DVDSoundArchive::DVDFileStream* stream, u32 begin, u32 r5) {
+void BRSAREntrySizePatch(snd::DVDSoundArchive::DVDFileStream* stream, s32 offset, u32 origin) {
     stream->size = 0x7FFFFFFF;
-    stream->Seek(begin, r5);
+    stream->Seek(offset, origin);
 }
 kmCall(0x80091354, BRSAREntrySizePatch);
 

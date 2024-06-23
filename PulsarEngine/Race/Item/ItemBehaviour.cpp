@@ -3,6 +3,7 @@
 #include <MarioKartWii/Item/Obj/ItemObj.hpp>
 #include <Settings/Settings.hpp>
 #include <SlotExpansion/CupsConfig.hpp>
+#include <MarioKartWii/Item/Obj/ObjProperties.hpp>
 #include <MKVN.hpp>
 
 namespace MKVN {
@@ -10,7 +11,7 @@ namespace Race{
 static void ChangeItemBehaviour(){
     const Gamemode gamemode = System::GetGamemode();
     if (gamemode != GAMEMODE_NONE){
-        Item::Behaviour *table = Item::Behaviour::behaviourTable;
+        Item::Behavior *table = Item::Behavior::behaviourTable;
         table[TRIPLE_BANANA].useType = Item::ITEMUSE_CIRCLE;
         table[BLUE_SHELL].useType = Item::ITEMUSE_FIRE;
 

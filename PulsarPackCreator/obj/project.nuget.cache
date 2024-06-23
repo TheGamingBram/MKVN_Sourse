@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "nixbMRXsAO/RsF/Mgwkdc4kB+JyD2RNNc5Fkaiojtk8riF2q8nTTUjXFXCja2lOZhHCdySJtXSfsLCZxA2Awfw==",
+  "success": true,
+  "projectFilePath": "D:\\MKVN_Sourse\\PulsarPackCreator\\Pulsar Pack Creator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bramh\\.nuget\\packages\\system.io.hashing\\7.0.0\\system.io.hashing.7.0.0.nupkg.sha512",
+    "C:\\Users\\bramh\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.15\\microsoft.windowsdesktop.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\bramh\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.15\\microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\bramh\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.15\\microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\bramh\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.15\\microsoft.netcore.app.host.win-x64.7.0.15.nupkg.sha512"
+  ],
+  "logs": []
+}

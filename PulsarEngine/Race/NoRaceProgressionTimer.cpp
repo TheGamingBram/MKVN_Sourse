@@ -18,11 +18,11 @@ static void UpdateTimer(){
                 if (currentRaceCompletion <= mkvn->lastRaceCompletion[playerId]){
                     // if the race is over, we do not want them to be respawned
                     if ((RaceInfo::sInstance->players[playerId]->stateFlags & 0x2) == 0x2){
-                        mkvn->noRaceProgressionTimer[playerId] = 600;
+                        mkvn->noRaceProgressionTimer[playerId] = 1200;
                     }
                     // if someone has fallen off, we want their timer reset
                     else if((player->link.pointers->kartStatus->bitfield0 & 0x10) == 0x10 && mkvn->noRaceProgressionTimer[playerId] != -1){
-                        mkvn->noRaceProgressionTimer[i] = 720;
+                        mkvn->noRaceProgressionTimer[i] = 1440;
                     }
                     // if someone is getting combo'd we don't want them to respawn, hence the damage check
                     else if (mkvn->noRaceProgressionTimer[playerId] > 0
@@ -37,7 +37,7 @@ static void UpdateTimer(){
                     }
                 }
                 else{
-                    mkvn->noRaceProgressionTimer[playerId] = 600;
+                    mkvn->noRaceProgressionTimer[playerId] = 1200;
                 }
                 mkvn->lastRaceCompletion[playerId] = currentRaceCompletion;
             }
@@ -48,7 +48,7 @@ static RaceFrameHook UpdateRaceProgTimerHook(UpdateTimer);
 
 static void ResetTimer(){
     if (!Pulsar::CupsConfig::IsRegsSituation()){
-        for (int i = 0; i < 4; i++) System::GetsInstance()->noRaceProgressionTimer[i] = 1020;
+        for (int i = 0; i < 4; i++) System::GetsInstance()->noRaceProgressionTimer[i] = 2040;
     }
 }
 static RaceLoadHook ResetRaceProgTimerHook(ResetTimer);

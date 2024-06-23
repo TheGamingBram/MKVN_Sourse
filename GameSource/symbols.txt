@@ -176,8 +176,8 @@ GenerateAbsPath__4nandFPcPCc = 0x8019e020
 Read__4KPADFiPQ24KPAD6StatusUi = 0x80197380
 
 
-PSVECAdd = 0x8019abe4
-PSVECMag = 0x8019ac68
+PSVECAdd__3MTXFPC3VecPC3VecP3Vec = 0x8019abe4
+PSVECMag__3MTXFPC3Vec = 0x8019ac68
 
 #NAND
 Create__4NANDFPCcUcUc = 0x8019b43c
@@ -201,7 +201,7 @@ DCFlushRange = 0x801a162c
 DCInvalidateRange__FPvUi = 0x801a1600
 ICInvalidateRange = 0x801a1710
 DCStoreRange__FPvUi = 0x801a165c
-OSCalcCRC32 = 0x801d1ca0
+CalcCRC32__2OSFPvUi = 0x801d1ca0
 OSDisableInterrupts = 0x801a65ac
 OSRestoreInterrupts = 0x801a65d4
 OSGetCurrentContext = 0x801a1ecc
@@ -214,6 +214,8 @@ SleepThread__2OSFPQ22OS11ThreadQueue = 0x801aa9b8
 DetachThread__2OSFPQ22OS6Thread = 0x801aa4ec
 CancelThread__2OSFPQ22OS6Thread = 0x801aa1d4
 current__Q22OS6Thread = 0x800000e4
+
+LockMutex__2OSFPQ22OS5Mutex = 0x801a7ee4
 
 #PAD
 Read__3PADFPQ23PAD6Status = 0x801af44c
@@ -271,6 +273,10 @@ detail_StartSound__Q34nw4r3snd14SoundStartableFPQ34nw4r3snd11SoundHandleUiPCQ44n
 detail_HoldSound__Q34nw4r3snd14SoundStartableFPQ34nw4r3snd11SoundHandleUiPCQ44nw4r3snd14SoundStartable9StartInfo = 0x800a3f90
 OpenExtStream__Q34nw4r3snd15DVDSoundArchiveFPQ44nw4r3snd15DVDSoundArchive13DvdFileStreamUiPcUiUi = 0x800912c0
 GetSoundType__Q34nw4r3snd12SoundArchiveCFUi = 0x8009df30
+detail_ReadStrmSoundInfo__Q34nw4r3snd12SoundArchiveCFUiPQ44nw4r3snd12SoundArchive13StrmSoundInfo = 0x8009df60
+SetTrackVolume__Q44nw4r3snd6detail9StrmSoundFUiif = 0x800a8a00
+__ct__Q34nw4r3snd15StrmSoundHandleFPQ34nw4r3snd11SoundHandle = 0x800a8de0
+DetachSound__Q34nw4r3snd15StrmSoundHandleFv = 0x800a8ef0
 ReadStrmInfo__Q44nw4r3snd6detail14StrmFileLoaderFPQ54nw4r3snd6detail14StrmFileReader8StrmInfo = 0x800a5490
 DetailUtilCalcRandom__Q24nw4r3sndFv = 0x800ad050
 Stop__Q44nw4r3snd6detail10BasicSoundFi = 0x8008e330
@@ -296,7 +302,7 @@ PostAddFileFromMemoryA__5GHTTPFPPQ25GHTTP7GHIPostPCcPCviPCcPCc = 0x80113944
 
 #EGG
 #System
-mInstance__8RKSystem = 0x802a4080
+mInstance__Q23EGG7TSystem = 0x802a4080
 
 #Math
 Mult__Q23EGG5QuatfFRCQ23EGG5QuatfRCQ23EGG8Vector3fRQ23EGG5Quatf = 0x8023a540
@@ -449,12 +455,13 @@ ComputeGPRank__14RaceDataPlayerFv = 0x8052daf0
 #RaceInfo
 sInstance__8RaceInfo = 0x809bd730
 IsAtLeastStage__8RaceinfoFUi = 0x80536230
+SetPlayerDisconnected__8RaceInfoFUc = 0x80533d84
 
 #RaceInfoPlayer
 __ct__14RaceInfoPlayerFUcUc = 0x80533ed8
 __dt__14RaceInfoPlayerFv = 0x80532f48
 FillTimerWithSplits__14RaceInfoPlayerFUcP5Timer = 0x8053572c
-
+Disconnect__14RaceInfoPlayerFv = 0x80534cbc
 
 #random
 __ct__6RandomFv = 0x80555464
@@ -581,8 +588,8 @@ SetPositionAnim__9UIControlFR16PositionAndScalef = 0x8063d194
 OnPlayAnimSound__9UIControlFv = 0x805BD2DC
 GetRuntimeTypeInfo__9UIControlCFv = 0x80606bdc
 GetClassName__9UIControlCFv = 0x8063d3c0
-func_0x30__9UIControlFv = 0x8063d608
-func_0x34__9UIControlFv = 0x805bd2d8
+vf_0x30__9UIControlFv = 0x8063d608
+vf_0x34__9UIControlFv = 0x805bd2d8
 InitControlGroup__9UIControlFUi = 0x8063d268
 AddControl__9UIControlFUiP9UIControl = 0x8063d278
 PlaySound__9UIControlFUiUi = 0x8063d74c
@@ -596,10 +603,10 @@ Update__15LayoutUIControlFv = 0x8063DB00
 Draw__15LayoutUIControlFUi = 0x8063DB84
 GetRuntimeTypeInfo__15LayoutUIControlCFv = 0x80636bd0
 GetClassName__15LayoutUIControlCFv = 0x8063d788
-func_0x30__15LayoutUIControlFv = 0x8063E61c
+vf_0x30__15LayoutUIControlFv = 0x8063E61c
 LoadNewLayout__15LayoutUIControlFPCcPCc = 0x8063D954
-SetTextBoxMessage__15LayoutUIControlFPCcUiPC8TextInfo = 0x8063dcbc
-SetMessage__15LayoutUIControlFUiPC8TextInfo = 0x8063ddb4
+SetTextBoxMessage__15LayoutUIControlFPCcUiPCQ24Text4Info = 0x8063dcbc
+SetMessage__15LayoutUIControlFUiPCQ24Text4Info = 0x8063ddb4
 SetMiiPane__15LayoutUIControlFPCcRC8MiiGroupUiUc = 0x8063e3dc
 SetPicturePane__15LayoutUIControlFPCcPCc = 0x8063e0f0
 __ct__24LayoutUIControlScaleFadeFv = 0x8063e674
@@ -668,6 +675,7 @@ __ct__9CountDownFv = 0x805c3bcc
 __dt__9CountDownFv = 0x805c3bec
 SetInitial__9CountDownFf = 0x805c3c2c
 Update__9CountDownFv = 0x805c3c44
+
 
 
 #PushButton
@@ -841,13 +849,13 @@ Init__17ControlButtonInfoFv = 0x805ef958
 __vt__18CtrlMenuBackButton = 0x808d374c
 
 #Title
-SetMessage__21CtrlMenuPageTitleTextFUiPC8TextInfo = 0x807e987c
+SetMessage__21CtrlMenuPageTitleTextFUiPCQ24Text4Info = 0x807e987c
 
 #TitleImage
 ChangeImage__10TitleImageFbUi = 0x8063a8d4
 
 #Instruction
-SetMessage__23CtrlMenuInstructionTextFUiPC8TextInfo = 0x807e9a38
+SetMessage__23CtrlMenuInstructionTextFUiPCQ24Text4Info = 0x807e9a38
 __vt__23CtrlMenuInstructionText = 0x808d3698
 __dt__23CtrlMenuInstructionTextFv = 0x805c00c0
 Load__23CtrlMenuInstructionTextFv = 0x807e9904
@@ -861,7 +869,7 @@ OnButtonDriverSelect__Q25Pages15CharacterSelectFPQ223CtrlMenuCharacterSelect12Bu
 buttonIdToCharacterId__23CtrlMenuCharacterSelect = 0x808a7de0
 
 #TextInfo
-__ct__8TextInfoFv = 0x805cd94c
+__ct__Q24Text4InfoFv = 0x805cd94c
 
 #CtrlRaceBase
 __vt__12CtrlRaceBase = 0x808d3a98
@@ -904,7 +912,8 @@ HasStarted__24CtrlRaceWifiStartMessageFv = 0x807F8BA4
 
 
 #CtrlResult
-DisplayFinishTime__14CtrlRaceResultFUc = 0x807f595c
+FillName__14CtrlRaceResultFUc = 0x807f52f4
+FillFinishTime__14CtrlRaceResultFUc = 0x807f595c
 
 #Votes
 Fill__11VoteControlFbUiRC8MiiGroupUibUi = 0x80642ca4 
@@ -988,7 +997,7 @@ LoadPrevPageWithDelayById__Q25Pages4MenuF6PageIdf = 0x8083761c
 LoadPrevPageById__Q25Pages4MenuF6PageIdR10PushButton = 0x80837934
 LoadNextPageById__Q25Pages4MenuF6PageIdR10PushButton = 0x80837720
 LoadNextPageWithDelayById__Q25Pages4MenuF6PageIdf = 0x8083761c
-LoadMessageBoxTransparentPage__Q25Pages4MenuFUiPC8TextInfo = 0x808386a0
+LoadMessageBoxTransparentPage__Q25Pages4MenuFUiPCQ24Text4Info = 0x808386a0
 ChangeToPrevSection__Q25Pages4MenuFPQ25Pages5Click = 0x808387ac
 ChangeSectionById__Q25Pages4MenuF9SectionIdR10PushButton = 0x80837e40 
 HandleStartPress__Q25Pages4MenuFUi = 0x80838b14
@@ -1163,6 +1172,7 @@ CreateControl__Q25Pages16MultiDriftSelectFUi = 0x8084b150
 CreateExternalControl__Q25Pages12SinglePlayerFUi = 0x8084efc4
 OnExternalButtonSelect__Q25Pages12SinglePlayerFR10PushButtonUi = 0x8084f688
 OnButtonClick__Q25Pages12SinglePlayerFR10PushButtonUi = 0x8084f298
+GetFanfareLength__Q25Audio12SinglePlayerCFv = 0x806f9728
 
 #GhostSelectPage
 __ct__Q25Pages11GhostSelectFv = 0x806395ec
@@ -1185,7 +1195,7 @@ __ct__Q25Pages10VSSettingsFv = 0x806284c8
 OnButtonDeselect__Q25Pages10VSSettingsFR10PushButtonUi = 0x808536b0
 
 #MatchingMessageWindow
-SetMessage__Q25Pages21MatchingMessageWindowFUiPC8TextInfo = 0x80607ef8
+SetMessage__Q25Pages21MatchingMessageWindowFUiPCQ24Text4Info = 0x80607ef8
 
 #WFCMainPage
 __ct__Q25Pages11WFCMainMenuFv = 0x8064b640
@@ -1231,6 +1241,7 @@ AfterControlUpdate__Q25Pages12GhostManagerFv = 0x805e1104
 func_0x58__Q25Pages12GhostManagerFv = 0x805e1108
 RequestGhost__Q25Pages12GhostManagerFUc = 0x805e1998
 GetRuntimeTypeInfo__Q25Pages12GhostManagerCFv = 0x805e2720
+PrepareRaceState__Q25Pages12GhostManagerFbb = 0x805e1748
 SetupGhostReplay__Q25Pages12GhostManagerFb = 0x805e1d5c
 SetupGhostRace__Q25Pages12GhostManagerFbbb = 0x805e1b04
 
@@ -1271,15 +1282,15 @@ SSL_Initialised = 0x80386d4c
 
 
 #Effects
-Reset__10EffectsMgrFv = 0x8067b8f0
+Reset__Q27Effects3MgrFv = 0x8067b8f0
 Update__10EffectsMgrFv = 0x8067cb88
-__ct__13PlayerEffectsFPQ24Kart6Player = 0x8068df98
-__dt__13PlayerEffectsFv = 0x8068e888
-LoadEffects__13PlayerEffectsFv = 0x8068f044
-DisplayPrimaryEffects__13PlayerEffectsFPPQ23EGG6EffectUiUiRC5Mtx34RC4Vec3b = 0x806975d4
-FadeEffects__13PlayerEffectsFPPQ23EGG6EffectUiUiRC5Mtx34RC4Vec3b = 0x80697788
-DisplayEffects2__13PlayerEffectsFPPQ23EGG6EffectUiUib = 0x806a19d8
-FadeEffects2__13PlayerEffectsFPPQ23EGG6EffectUiUib = 0x806a1b68
+__ct__Q27Effects6PlayerFPQ24Kart6Player = 0x8068df98
+__dt__Q27Effects6PlayerFv = 0x8068e888
+LoadEffects__Q27Effects6PlayerFv = 0x8068f044
+CreateAndUpdateEffectsByIdx__Q27Effects6PlayerFPPQ23EGG6EffectUiUiRC5Mtx34RC4Vec3b = 0x806975d4
+FollowFadeEffectsByIdx__Q27Effects6PlayerFPPQ23EGG6EffectUiUiRC5Mtx34RC4Vec3b = 0x80697788
+CreateAndUpdateEffectsByIdxVelocity__Q27Effects6PlayerFPPQ23EGG6EffectUiUiUi = 0x806a19d8
+FollowFadeEffectsByIdxVelocity__Q27Effects6PlayerFPPQ23EGG6EffectUiUiUi = 0x806a1b68
 __ct__Q23EGG14EffectResourceFPvPv = 0x80225c98
 
 #Sound
@@ -1289,6 +1300,7 @@ Unlock__Q25Audio7ManagerFv = 0x807178f8
 
 #SinglePlayer
 sInstance__Q25Audio12SinglePlayer = 0x809c2328
+PrepareSound__Q25Audio12SinglePlayerFUib = 0x806f8dcc
 PlaySound__Q25Audio12SinglePlayerFUis = 0x806f8b7c
 PlayBGSound__Q25Audio12SinglePlayerFUi = 0x806fa604
 StopSound__Q25Audio12SinglePlayerFv = 0x806f90c4
@@ -1358,7 +1370,7 @@ LoadGraphics__Q24Item3ObjFPCcPCcPCcUcPQ34Item7ObjBase8AnmParamQ44nw4r3g3d6ScnMdl
 LoadGraphicsImplicitBRRES__Q24Item3ObjFPCcPCcUcPQ34Item7ObjBase8AnmParamQ44nw4r3g3d6ScnMdl12BufferOptionPv = 0x8079ffdc
 LoadGraphicsImplicitBRRESNoFunc__Q24Item3ObjFPCcPCcPQ34Item7ObjBase8AnmParamQ44nw4r3g3d6ScnMdl12BufferOptionUi = 0x8079ff5c
 __ct__Q24Item13ObjPropertiesFRCQ24Item13ObjProperties = 0x80790e7c
-DeployBlooper__Q24Item8GessoMgrFUc = 0x807a9128
+DeployBlooper__Q24Item8GessoMgrFUs = 0x807a9128
 AddEVENTEntry__Q24Item7ObjBaseF9ItemObjIdUc = 0x8079c220
 
 #ItemObjThrowable
@@ -1373,6 +1385,10 @@ sInstance__Q25RKNet10Controller = 0x809c20d8
 UpdateAidsBelongingToPlayerIds__Q25RKNet10ControllerFv = 0x80659bc0
 Init__Q25RKNet10ControllerFUc = 0x80655c10
 ScheduleShutdown__Q25RKNet10ControllerFv = 0x806561a8
+ProcessPlayerDisconnect__Q25RKNet10ControllerFUi = 0x80658990
+
+#PacketMgr
+sInstance__Q25RKNet9PacketMgr = 0x809c1f50
 
 #PacketHolder
 sInstance__Q25RKNet13SELECTHandler = 0x809c2100
@@ -1505,6 +1521,9 @@ IsCollidingImpl__15ObjectExternKCLFRC4Vec3RC4Vec311KCLBitfieldP13CollisionInfoP1
 
 ##Rel	
 GetTrackBMGId = 0x80833668
+GetTrackBMGId = 0x80833668
+IsKartUnlocked = 0x8081cfb4					   
+GetTrackBMGId = 0x80833668							   
 IsKartUnlocked = 0x8081cfb4					   
 
 
@@ -1522,6 +1541,7 @@ GetCourseIdBySlot = 0x80552e74
 CharacterIDToWeightClass = 0x8081cd3c
 groupTypeSaveOffset = 0x80890d28
 
+
 #Global Funcs
 GetItemIconPaneName__F6ItemIdUi = 0x80860af0
 IsBattle__Fv = 0x80860a8c
@@ -1535,7 +1555,8 @@ AreAllPlayersActive__Q25Pages4MenuFv = 0x808388f0
 itemObjProperties = 0x809c2f48
 itemSlotData = 0x809c3670						 
 itemBehaviourTable = 0x809c36a0
-behaviourTable__Q24Item9Behaviour = 0x809c36a0
+#behaviourTable__Q24Item9Behaviour
+behaviourTable__Q24Item8Behavior = 0x809c36a0
 
 
 #debug

@@ -96,7 +96,7 @@ namespace UI {
                 if (hudSlotId == 0) newButton = charSelect.GetButtonDriver(static_cast<CharacterId>(BABY_MARIO));
                 else if (hudSlotId == 1) newButton = charSelect.GetButtonDriver(static_cast<CharacterId>(BABY_LUIGI));
                 newButton->SelectInitialButton(hudSlotId);
-                newButton->SetButtonColours(hudSlotId);
+                // newButton->SetButtonColours(hudSlotId);
                 page->OnButtonDriverSelect(newButton, newButton->buttonId, hudSlotId);
             }
             else if (charRestrict == CHAR_MEDIUMONLY &&
@@ -107,7 +107,7 @@ namespace UI {
                 if (hudSlotId == 0) newButton = charSelect.GetButtonDriver(static_cast<CharacterId>(MARIO));
                 else if (hudSlotId == 1) newButton = charSelect.GetButtonDriver(static_cast<CharacterId>(LUIGI));
                 newButton->SelectInitialButton(hudSlotId);
-                newButton->SetButtonColours(hudSlotId);
+                // newButton->SetButtonColours(hudSlotId);
                 page->OnButtonDriverSelect(newButton, newButton->buttonId, hudSlotId);
             }
             else if (charRestrict == CHAR_HEAVYONLY &&
@@ -118,7 +118,7 @@ namespace UI {
                 if (hudSlotId == 0) newButton = charSelect.GetButtonDriver(static_cast<CharacterId>(WARIO));
                 else if (hudSlotId == 1) newButton = charSelect.GetButtonDriver(static_cast<CharacterId>(WALUIGI));
                 newButton->SelectInitialButton(hudSlotId);
-                newButton->SetButtonColours(hudSlotId);
+                // newButton->SetButtonColours(hudSlotId);
                 page->OnButtonDriverSelect(newButton, newButton->buttonId, hudSlotId);
             }
         }

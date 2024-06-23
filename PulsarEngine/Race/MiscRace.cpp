@@ -42,7 +42,7 @@ static RaceLoadHook BattleGlitch(BattleGlitchEnable);
 
 kmWrite32(0x8085C914, 0x38000000); //times at the end of races in VS
 static void DisplayTimesInsteadOfNames(CtrlRaceResult& result, u8 id) {
-    result.DisplayFinishTime(id);
+    result.FillFinishTime(id);
 }
 kmCall(0x8085d460, DisplayTimesInsteadOfNames); //for WWs
 
@@ -50,7 +50,7 @@ kmCall(0x8085d460, DisplayTimesInsteadOfNames); //for WWs
 kmWrite32(0x807F4DB8, 0x38000001);
 
 //Draggable blue shells
-static void DraggableBlueShells(Item::PlayerSub& sub) {
+static void DraggableBlueShells(Item::PlayerObj& sub) {
     if(Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_BLUES) == RACESETTING_DRAGGABLE_BLUES_DISABLED) {
         sub.isNotDragged = true;
     }
